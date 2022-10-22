@@ -11,5 +11,19 @@ Here's a bunch of shell commands to do various python things. You should run the
 pip3 install <dependency>
 
 # This updates the dependencies.txt file
-pip3 freeze > dependencies.txt
+pip3 freeze > requirements.txt
+```
+
+### Install dependencies listed in `requirements.txt`
+
+You should do this whenever `requirements.txt` changes. If you don't do it and you don't have issues, you're fine!
+
+```bash
+pip3 install -r requirements.txt
+```
+
+### Run Flask app
+
+```bash
+flask run
 ```
