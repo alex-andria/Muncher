@@ -19,6 +19,7 @@ pip3 freeze > requirements.txt
 You should do this whenever `requirements.txt` changes. If you don't do it and you don't have issues, you're fine!
 
 ```bash
+# Muncher
 pip3 install -r requirements.txt
 ```
 
