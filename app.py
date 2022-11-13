@@ -13,6 +13,11 @@ app.secret_key = "d9be77765b2f16a443d918134adff8e54b8f9f9d0c82cf25f2c3817ba5ae72
 
 storage = interface.InMemoryStorage()
 
+storage.create_user("alex", "password")
+storage.create_user("felix", "password")
+storage.create_room("default room", "alex")
+storage.join_room("default room", "felix")
+
 # { "felix": [
 #     {
 #       "swipe": "yes",
@@ -60,7 +65,6 @@ def valid_username_and_password(username, password):
         return True
     return False
  
-
 
 # def valid_
 
@@ -131,9 +135,17 @@ def join_room():
 # @app.post('/api/room/exit')
 
 # record an action
-# @app.post('/api/room/swipe')
-# def record_action():
-    # 
+@app.post('/api/room/swipe')
+def record_action():
+    username = session["username"]
+    code = request.form['code']
+    action = request.form['action']
+    food = request.form['food']
 
+    storage.record_action(username, action, food, code) 
+    return "action recorded"
 
-in_memory.in_memory_test()
+#find a match between users
+@app.get('/api/room/match')
+def find_match():
+    pass

@@ -24,9 +24,13 @@ class Storage(ABC):
     def room_exists(self, code):
         pass
 
+    @abstractmethod
+    def record_action(self, username, action, food, code):
+        pass
+
 @dataclass
 class SwipeAction:
-    swipe: str
+    action: str
     food: str
 
 @dataclass
@@ -37,7 +41,9 @@ class User:
 
 @dataclass
 class Room:
+    # str = room code
     code: str
+    # str = username
     swipes: Dict[str, List[SwipeAction]]
 
 class InMemoryStorage(Storage):
@@ -47,6 +53,9 @@ class InMemoryStorage(Storage):
     def __init__(self):
         self.rooms = {}
         self.users = {}
+
+    def __repr__(self):
+        return repr(self.rooms)
 
     def user_exists(self, username):
         return username in self.users
@@ -63,7 +72,6 @@ class InMemoryStorage(Storage):
             password = password
         )
 
-
     def create_room(self, code, owner):
         self.rooms[code] = Room(code, swipes={ owner: [] })
 
@@ -75,8 +83,55 @@ class InMemoryStorage(Storage):
             room.swipes[username] = []
     
     def room_exists(self, code):
-        return code in rooms
-        
+        return code in self.rooms
+
+    def record_action(self, username, action, food, code):
+        room = self.rooms[code]
+        userSwipes = room.swipes[username]
+        userSwipes.append(SwipeAction(action, food))
+
+    # To Debug matching
+    def find_match(self, code):
+        room = self.rooms[code]
+        users = list(room.swipes.keys())
+        username1 = users[0]
+        username2 = users[1]
+
+        for swipe in room.swipes[username1]:
+            food1 = ""
+            if swipe.action == "yes":
+                food1 = swipe.food
+                return food1
+            
+        for swipe in room.swipes[username2]:
+            food2 = ""
+            if swipe.action == "yes":
+                food2 = swipe.food
+                return food2
+
+        if food1 == food2:
+            return "Match"
+
+        #if user1 SwipeAction["food"]="yes" and user2 SwipeAction["food"] = "yes"
+        # if SwipeAction
 
 class SqliteStorage(Storage):
     pass
+
+storage = InMemoryStorage()
+
+storage.create_user("alex", "123")
+storage.create_user("felix", "pw")
+
+code = "room code"
+storage.create_room(code, "alex")
+storage.join_room(code, "felix")
+
+storage.record_action("alex", "yes", "Filipino", "room code")
+storage.record_action("alex", "no", "El Salvadorian", "room code")
+storage.record_action("alex", "yes", "Canandian", "room code")
+storage.record_action("felix", "yes", "Canandian", "room code")
+
+print("matching result", storage.find_match("room code"))
+
+print(repr(storage))
