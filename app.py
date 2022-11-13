@@ -3,29 +3,15 @@ from dataclasses import dataclass
 import random
 import string
 from typing import Dict, List
+import in_memory
+import interface
 
 app = Flask(__name__)
 
 # Storing this secret key in code is unsafe, but fine for now.
 app.secret_key = "d9be77765b2f16a443d918134adff8e54b8f9f9d0c82cf25f2c3817ba5ae7251"
 
-
-@dataclass
-class User:
-    username: str
-    password: str
-
-
-@dataclass
-class SwipeAction:
-    swipe: str
-    food: str
-
-
-@dataclass
-class Room:
-    code: str
-    swipes: Dict[str, List[SwipeAction]]
+storage = interface.InMemoryStorage()
 
 # { "felix": [
 #     {
@@ -41,28 +27,6 @@ class Room:
 #   ]
 # }
 
-
-# dictionary of str to User
-users = {
-    "user1": User(
-        username="user1",
-        password="123"
-    ),
-     "user2": User(
-     username="user2",
-     password="123"
- ),
-    
-}
-
-# dictionary of str to RoomCode
-rooms = {
-    "1234": Room(
-        code="1234",
-        swipes={}
-    )
-
-}
 
 # 
 foods = {
@@ -91,24 +55,12 @@ def generate_room_code():
     return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(5))
 
 
-def valid_signup(username, password):
-    if (len(username) > 1) and (username not in users):
-        if len(password ) > 1:
-            return True
+def valid_username_and_password(username, password):
+    if (len(username) > 1) and len(password ) > 1:
+        return True
     return False
  
 
-def valid_login(username, password):
-    if username in users:
-        if password == users[username].password:
-            return True
-    return False
-
-
-def valid_code(code):
-    if code in rooms:
-        return True
-    return False
 
 # def valid_
 
@@ -125,8 +77,9 @@ def hello_world():
 @app.post('/api/login/')
 def login():
     # Form data: say=Hi&to=Mom
-    if valid_login(request.form['username'], request.form['password']):
-        session['username'] = request.form['username']
+    username = request.form['username']
+    if storage.valid_login(username, request.form['password']):
+        session['username'] = username
     else:
         return "Invalid username and password."
 
@@ -145,8 +98,10 @@ def logout():
 def create_user():
     username = request.form['username']
     password = request.form['password']
-    if valid_signup(username, password):
-        users[username] = User(username, password)
+
+    if valid_username_and_password(username, password) and not storage.user_exists(username):
+        storage.create_user(username, password)
+
         session['username'] = request.form['username']
         return "Thank you for joining Muncher!"
     else:
@@ -157,7 +112,7 @@ def create_user():
 def create_room():
     username = session["username"]
     code = generate_room_code()
-    rooms[code] = Room(code, swipes={ username: [] })
+    storage.create_room(code, username)
     return code
 
 # join a room
@@ -166,12 +121,8 @@ def join_room():
     username = session["username"]
 
     code = request.form['code']
-    if valid_code(code):
-        room = rooms[code]
-
-        if username not in room.swipes:
-            # Alex brain mush TBD:
-            room.swipes[username] = []
+    if storage.room_exists(code):
+        storage.join_room(code, username)
 
         return "Welcome to your room!"
     return "Room not found!"
@@ -185,3 +136,4 @@ def join_room():
     # 
 
 
+in_memory.in_memory_test()
