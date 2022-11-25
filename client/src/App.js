@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import NavBar from "./Components/NavBar";
 import {Routes, Route } from "react-router-dom";
 import HomePage from "./Components/HomePage";
+import MatchRoom from "./Components/MatchRoom";
 
 import './App.css';
 
@@ -16,6 +17,7 @@ function App() {
     <main>
       <Routes>
         <Route path="/" element={<HomePage/>}/>
+        <Route path="/match-room" element={<MatchRoom/>}/>
       </Routes>
     </main>
    </>
