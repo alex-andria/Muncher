@@ -1,4 +1,5 @@
 from flask import Flask, request, session, redirect, url_for, g
+from flask_cors import CORS
 from dataclasses import dataclass
 import random
 import string
@@ -7,6 +8,7 @@ import in_memory
 import interface
 
 app = Flask(__name__)
+CORS(app, supports_credentials=True)
 
 # Storing this secret key in code is unsafe, but fine for now.
 app.secret_key = "d9be77765b2f16a443d918134adff8e54b8f9f9d0c82cf25f2c3817ba5ae7251"
@@ -32,17 +34,6 @@ storage.join_room("default room", "felix")
 #   ]
 # }
 
-
-# 
-foods = {
-    "Mexican",
-    "Vietnamese",
-    "French",
-    "Filipino",
-    "Tex-Mex",
-    "Italian"
-}
-
 # 
 # actions = {
 #     "action1": SwipeAction(
@@ -52,7 +43,6 @@ foods = {
 #         food="Mexican"
 #     )
 # }
-   
 
 # @app.route('/api/')
 # https://stackoverflow.com/questions/2257441/random-string-generation-with-upper-case-letters-and-digits
@@ -60,10 +50,15 @@ def generate_room_code():
     return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(5))
 
 
-def valid_username_and_password(username, password):
-    if (len(username) > 1) and len(password ) > 1:
-        return True
-    return False
+def valid_username_and_password(username, password, passwordConfirmation):
+    if len(username) == 0:
+        return "Username must be non-empty"
+    elif len(password) == 0:
+        return "Password must be non-empty"
+    elif password != passwordConfirmation:
+        return "Passwords do not match"
+    else:
+        return None
  
 
 # def valid_
@@ -100,16 +95,29 @@ def logout():
 # create a user
 @app.post('/api/user')
 def create_user():
-    username = request.form['username']
-    password = request.form['password']
+    username = request.json['username']
+    password = request.json['password']
+    passwordConfirmation = request.json['password_confirmation']
 
-    if valid_username_and_password(username, password) and not storage.user_exists(username):
+    error_message = valid_username_and_password(username, password, passwordConfirmation)
+    # storage.user_exists(username) checks if the user already exists in storage
+    if None == error_message and not storage.user_exists(username):
         storage.create_user(username, password)
-
-        session['username'] = request.form['username']
-        return "Thank you for joining Muncher!"
+        session['username'] = username
+        print(f" *****SESSION**** #{session}")
+        return {}, 200
     else:
-        return "Please use a valid username and password."
+        return {"error": error_message}, 400
+
+# get user session
+@app.get('/api/me')
+def get_session():
+    # print(f" *****SESSION**** #{session}")
+    if 'username' not in session:
+        return {"error": "Unauthorized"}, 401
+    username=session['username']
+    return {"username": username}, 200
+    # not authorized
 
 # create a room
 @app.post('/api/room')
@@ -148,4 +156,11 @@ def record_action():
 #find a match between users
 @app.get('/api/room/match')
 def find_match():
-    pass
+    code = request.form['code']
+    return storage.find_match(code)
+
+@app.get('/api/cuisine/next')
+def get_next_cuisine():
+    code = request.form['code']
+    username = session["username"]
+    return storage.get_next_cuisine(code, username)

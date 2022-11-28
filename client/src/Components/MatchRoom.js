@@ -9,6 +9,7 @@ function MatchRoom(){
             <CuisineCard/>
         </>
     );
+    
 }
 
 export default MatchRoom;

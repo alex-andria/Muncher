@@ -9,8 +9,18 @@ import SignIn from "./Components/Auth/SignIn";
 import './App.css';
 
 function App() {
+  const [user, setUser] = useState(null);
 
-  // if (!user) return <LogInPage onLogin={onLogIn} />
+  useEffect(() => {
+    // auto-login
+    fetch("http://localhost:5000/api/me").then((r) => {
+      if (r.ok) {
+        r.json().then((user) => setUser(user));
+      }
+    });
+  }, []);
+
+  if (!user) return <SignIn onLogin={setUser} />
 
   return (
    <>
@@ -19,7 +29,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage/>}/>
         <Route path="/match-room" element={<MatchRoom/>}/>
-        <Route path="/sign-in" element={<SignIn/>}/>
+        {/* <Route path="/sign-in" element={<SignIn onLogin={setUser}/>}/> */}
       </Routes>
     </main>
    </>

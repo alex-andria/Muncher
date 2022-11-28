@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import style from "./Auth.css";
 
-function SignIn() {
+function SignIn({onLogin}) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [newUserUsername, setNewUserUsername] = useState("");
@@ -21,7 +21,7 @@ function SignIn() {
     console.log(login);
 
     // ***** POST request for user log-in *****
-    // fetch("http://localhost:3000/login", {
+    // fetch("/api/user", {
     //     method: "POST",
     //     headers: {
     //       "Content-Type": "application/json",
@@ -29,10 +29,8 @@ function SignIn() {
     //     body: JSON.stringify(login),
     //   }).then((data) => {
     //     if (data.ok) {
-    //       data.json().then((user) => onLogin(user));
-    //     } else {
-    //       data.json().then((err) => setErrors(err.errors));
-    //     }
+    //       console.log(data);
+    //     } 
     //   });
   }
 
@@ -45,6 +43,27 @@ function SignIn() {
       password_confirmation: newUserPasswordConfirmation,
     };
     console.log(newUser);
+
+    fetch("http://localhost:5000/api/user", {
+      method: "POST",
+      mode: 'cors',
+      body: JSON.stringify(newUser),
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((data) => {
+      console.log(data);
+      if (data.ok) {
+        onLogin(newUser.username);
+      }else{
+        data.json().then((err) => {
+          console.log(err.error);
+          setErrors(err.error);
+        });
+      } 
+    });
+
   }
 
   return (
@@ -159,6 +178,7 @@ function SignIn() {
                 <div className="group">
                   <input type="submit" className="button" value="Sign Up" />
                 </div>
+                <h3>{errors}</h3>
                 <div className="hr"></div>
                 <div className="foot-lnk">
                   <label htmlFor="tab-1">Already Member?</label>

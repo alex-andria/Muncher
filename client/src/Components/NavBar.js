@@ -8,6 +8,11 @@ function NavBar() {
           Muncher
         </a>
       </div>
+      <div>
+        <a className="navbar-brand" href="/">
+          Log-out
+        </a>
+      </div>
     </nav>
   );
 }

@@ -1,6 +1,16 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Dict, List
+import random
+
+foods = {
+    "Mexican",
+    "Vietnamese",
+    "French",
+    "Filipino",
+    "Tex-Mex",
+    "Italian"
+}
 
 class Storage(ABC):
     @abstractmethod
@@ -97,20 +107,51 @@ class InMemoryStorage(Storage):
         username1 = users[0]
         username2 = users[1]
 
+        username1Yeses = set()
         for swipe in room.swipes[username1]:
-            food1 = ""
             if swipe.action == "yes":
-                food1 = swipe.food
-                return food1
-            
-        for swipe in room.swipes[username2]:
-            food2 = ""
-            if swipe.action == "yes":
-                food2 = swipe.food
-                return food2
+                username1Yeses.add(swipe.food)
 
-        if food1 == food2:
-            return "Match"
+        username2Yeses = set()
+        for swipe in room.swipes[username2]:
+            if swipe.action == "yes":
+                username2Yeses.add(swipe.food)
+        intersection = username1Yeses.intersection(username2Yeses)
+
+        if len(intersection) == 0:
+            return "No match"
+        if len(intersection) != 1:
+            return "Error! Too many matches"
+        
+        return list(intersection)[0]
+    
+    def get_next_cuisine(self, code, user):
+        yeses = []
+        swipes = self.rooms[code].swipes[user]
+        for swipe in swipes:
+            if swipe.action == "yes":
+                yeses.append(swipe.food)
+        
+        return random.sample(set(foods).difference(set(yeses)), 1)
+        
+
+
+        return "Cuisine is: "
+
+        # for swipe in room.swipes[username1]:
+        #     food1 = ""
+        #     if swipe.action == "yes":
+        #         food1 = swipe.food
+        #         return food1
+            
+        # for swipe in room.swipes[username2]:
+        #     food2 = ""
+        #     if swipe.action == "yes":
+        #         food2 = swipe.food
+        #         return food2
+
+        # if food1 == food2:
+        #     return "Match"
 
         #if user1 SwipeAction["food"]="yes" and user2 SwipeAction["food"] = "yes"
         # if SwipeAction
@@ -135,3 +176,10 @@ storage.record_action("felix", "yes", "Canandian", "room code")
 print("matching result", storage.find_match("room code"))
 
 print(repr(storage))
+
+print(storage.get_next_cuisine("room code", "felix"))
+print(storage.get_next_cuisine("room code", "felix"))
+print(storage.get_next_cuisine("room code", "felix"))
+print(storage.get_next_cuisine("room code", "felix"))
+print(storage.get_next_cuisine("room code", "felix"))
+print(storage.get_next_cuisine("room code", "felix"))
