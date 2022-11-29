@@ -9,7 +9,8 @@ foods = {
     "French",
     "Filipino",
     "Tex-Mex",
-    "Italian"
+    "Italian",
+    "Canadian"
 }
 
 class Storage(ABC):

@@ -28,3 +28,18 @@ pip3 install -r requirements.txt
 ```bash
 flask run
 ```
+
+
+### Updated running instructions
+
+In one terminal, run:
+```bash
+flask --debug run
+```
+
+In another one, run:
+```bash
+npm run start
+```
+
+Opening http://localhost:5000 will load a functional app that successfully handles reloading.

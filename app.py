@@ -4,8 +4,8 @@ from dataclasses import dataclass
 import random
 import string
 from typing import Dict, List
-import in_memory
 import interface
+from requests import get
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
@@ -43,6 +43,7 @@ storage.join_room("default room", "felix")
 #         food="Mexican"
 #     )
 # }
+
 
 # @app.route('/api/')
 # https://stackoverflow.com/questions/2257441/random-string-generation-with-upper-case-letters-and-digits
@@ -101,7 +102,9 @@ def create_user():
 
     error_message = valid_username_and_password(username, password, passwordConfirmation)
     # storage.user_exists(username) checks if the user already exists in storage
-    if None == error_message and not storage.user_exists(username):
+    if storage.user_exists(username):
+        return {"error": "Username unavailable"}, 400
+    if None == error_message:
         storage.create_user(username, password)
         session['username'] = username
         print(f" *****SESSION**** #{session}")
@@ -164,3 +167,28 @@ def get_next_cuisine():
     code = request.form['code']
     username = session["username"]
     return storage.get_next_cuisine(code, username)
+
+def proxy(host, path):
+    response = get(f"{host}{path}")
+    excluded_headers = [
+        "content-encoding",
+        "content-length",
+        "transfer-encoding",
+        "connection",
+    ]
+    headers = {
+        name: value
+        for name, value in response.raw.headers.items()
+        if name.lower() not in excluded_headers
+    }
+    return (response.content, response.status_code, headers)
+
+# Based on:
+# - https://stackoverflow.com/questions/14023864/flask-url-route-route-all-other-urls-to-some-function
+@app.route("/")
+@app.route("/<path:rest>")
+def fallback(rest = None):
+    if rest is not None and rest.startswith("/api/"):
+        return {}, 404
+    WEBPACK_DEV_SERVER_HOST = "http://localhost:5050"
+    return proxy(WEBPACK_DEV_SERVER_HOST, request.path)

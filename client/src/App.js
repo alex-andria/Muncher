@@ -13,15 +13,18 @@ function App() {
 
   useEffect(() => {
     // auto-login
-    fetch("http://localhost:5000/api/me").then((r) => {
+    fetch("/api/me").then((r) => {
       if (r.ok) {
         r.json().then((user) => setUser(user));
+      } else {
+        setUser(null);
       }
     });
   }, []);
 
   if (!user) return <SignIn onLogin={setUser} />
 
+  console.log("After first signin modal")
   return (
    <>
     <NavBar />

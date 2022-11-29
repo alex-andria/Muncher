@@ -20,18 +20,25 @@ function SignIn({onLogin}) {
     };
     console.log(login);
 
-    // ***** POST request for user log-in *****
-    // fetch("/api/user", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(login),
-    //   }).then((data) => {
-    //     if (data.ok) {
-    //       console.log(data);
-    //     } 
-    //   });
+    fetch("/api/login", {
+      method: "POST",
+      mode: 'cors',
+      body: JSON.stringify(login),
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((data) => {
+      console.log(data);
+      if (data.ok) {
+        onLogin(login.username);
+      }else{
+        data.json().then((err) => {
+          console.log(err.error);
+          setErrors(err.error);
+        });
+      } 
+    });
   }
 
   //sign-up submit
@@ -44,7 +51,7 @@ function SignIn({onLogin}) {
     };
     console.log(newUser);
 
-    fetch("http://localhost:5000/api/user", {
+    fetch("/api/user", {
       method: "POST",
       mode: 'cors',
       body: JSON.stringify(newUser),
