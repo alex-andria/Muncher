@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useRef } from 'react'
 import TinderCard from 'react-tinder-card'
 
+// temporary database
 const db = [
   {
     name: 'Canadian',
@@ -39,14 +40,25 @@ const db = [
     url: './CuisineImages/Yemeni.jpeg'
   },
   {
+    name: 'American',
+    url: './CuisineImages/American.png'
+  },
+  {
     name: 'Chinese',
     url: './CuisineImages/Chinese.jpg'
   }
 ]
 
+
 function CuisineCard () {
   const [currentIndex, setCurrentIndex] = useState(db.length - 1)
   const [lastDirection, setLastDirection] = useState()
+  const [cuisineCards, setCuisineCards] = useState([])
+
+
+  // fetch request for backend database
+
+
   // used for outOfFrame closure
   const currentIndexRef = useRef(currentIndex)
 
@@ -107,6 +119,9 @@ function CuisineCard () {
         rel='stylesheet'
       />
       <h1>React Tinder Card</h1>
+      <br></br>
+      <br></br>
+      <br></br>
       <div className='cardContainer'>
         {db.map((character, index) => (
           <TinderCard
@@ -125,6 +140,9 @@ function CuisineCard () {
           </TinderCard>
         ))}
       </div>
+      <br></br>
+      <br></br>
+      <br></br>
       <div className='buttons'>
         <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('left')}>Swipe left!</button>
         <button style={{ backgroundColor: !canGoBack && '#c3c4d3' }} onClick={() => goBack()}>Undo swipe!</button>
