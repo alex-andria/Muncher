@@ -85,7 +85,7 @@ def login():
     return "You are logged in." 
 
 # end a user session
-@app.get('/api/logout/')
+@app.delete('/api/logout/')
 def logout():
     # remove the username from the session if it's there
     session.pop('username', None)

@@ -1,6 +1,15 @@
 import React from "react";
 
-function NavBar() {
+function NavBar({user, setUser}) {
+
+  function handleLogOut() {
+    fetch("/api/logout", { method: "DELETE" }).then((r) => {
+      if (r.ok) {
+        setUser(null);
+      }
+    });
+  }
+
   return (
     <nav>
       <div>
@@ -9,9 +18,9 @@ function NavBar() {
         </a>
       </div>
       <div>
-        <a className="navbar-brand" href="/">
+        <button className="btn btn-primary" onClick={handleLogOut}>
           Log-out
-        </a>
+        </button>
       </div>
     </nav>
   );
