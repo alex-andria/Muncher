@@ -7,7 +7,7 @@ from typing import Dict, List
 import interface
 from requests import get
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='client/build')
 CORS(app, supports_credentials=True)
 
 # Storing this secret key in code is unsafe, but fine for now.
