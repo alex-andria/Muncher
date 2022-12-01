@@ -89,7 +89,7 @@ def login():
 def logout():
     # remove the username from the session if it's there
     session.pop('username', None)
-    return redirect(url_for('hello_world'))
+    return {}, 200
 
 # create a user
 @app.post('/api/user')

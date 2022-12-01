@@ -40,6 +40,8 @@ flask --debug run
 In another one, run:
 ```bash
 npm run start
+or
+npm start --prefix client
 ```
 
 Opening http://localhost:5000 will load a functional app that successfully handles reloading.
