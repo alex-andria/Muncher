@@ -22,7 +22,6 @@ function SignIn({onLogin}) {
 
     fetch("/api/login", {
       method: "POST",
-      mode: 'cors',
       body: JSON.stringify(login),
       credentials: "include",
       headers: {
@@ -53,7 +52,6 @@ function SignIn({onLogin}) {
 
     fetch("/api/user", {
       method: "POST",
-      mode: 'cors',
       body: JSON.stringify(newUser),
       credentials: "include",
       headers: {

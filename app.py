@@ -1,5 +1,4 @@
 from flask import Flask, request, session, redirect, url_for, g
-from flask_cors import CORS
 from dataclasses import dataclass
 import random
 import string
@@ -8,7 +7,6 @@ import interface
 from requests import get
 
 app = Flask(__name__, static_folder='client/build')
-CORS(app, supports_credentials=True)
 
 # Storing this secret key in code is unsafe, but fine for now.
 app.secret_key = "d9be77765b2f16a443d918134adff8e54b8f9f9d0c82cf25f2c3817ba5ae7251"
