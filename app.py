@@ -75,14 +75,14 @@ def hello_world():
 @app.post('/api/login/')
 def login():
     # Form data: say=Hi&to=Mom
-    username = request.form['username']
-    if storage.valid_login(username, request.form['password']):
+    username = request.json['username']
+    if storage.valid_login(username, request.json['password']):
         session['username'] = username
     else:
-        return "Invalid username and password."
+        return {"error": "Invalid username and password."}, 401 
 
     print(request.data)
-    return "You are logged in." 
+    return {"data": "You are logged in."} 
 
 # end a user session
 @app.delete('/api/logout/')
@@ -126,19 +126,19 @@ def create_room():
     username = session["username"]
     code = generate_room_code()
     storage.create_room(code, username)
-    return code
+    return {"code": code}
 
 # join a room
 @app.post('/api/room/join')
 def join_room():
     username = session["username"]
 
-    code = request.form['code']
+    code = request.json['code']
     if storage.room_exists(code):
         storage.join_room(code, username)
 
-        return "Welcome to your room!"
-    return "Room not found!"
+        return {"response": "Welcome to your room!"}, 200
+    return {"error": "Room not found!"}, 404
 
 # exit a room
 # @app.post('/api/room/exit')
@@ -147,12 +147,17 @@ def join_room():
 @app.post('/api/room/swipe')
 def record_action():
     username = session["username"]
-    code = request.form['code']
-    action = request.form['action']
-    food = request.form['food']
+    code = request.json['code']
+    action = request.json['action']
+    food = request.json['food']
 
-    storage.record_action(username, action, food, code) 
-    return "action recorded"
+    if action not in { "yes", "no" }:
+        return { "error": "invalid action" }, 400
+
+    error = storage.record_action(username, action, food, code) 
+    if error != None:
+        return { "error": error }, 400
+    return { "message": "action recorded" }, 200
 
 #find a match between users
 @app.get('/api/room/match')
@@ -164,7 +169,8 @@ def find_match():
 def get_next_cuisine():
     code = request.form['code']
     username = session["username"]
-    return storage.get_next_cuisine(code, username)
+    selectedCuisine = storage.get_next_cuisine(code, username)
+    return { 'cuisine': selectedCuisine.cuisine, 'imageUrl': selectedCuisine.imageUrl }, 200
 
 def proxy(host, path):
     response = get(f"{host}{path}")

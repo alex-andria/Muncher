@@ -1,20 +1,35 @@
 import React, { useState, useEffect } from "react";
+import { Link, Routes, Route, useNavigate } from "react-router-dom";
 
 function JoinRoom() {
   const [joinCode, setJoinCode] = useState("");
 
+  const navigate = useNavigate();
+
+  const navigateMatchRoom = () => {
+    // 👇️ navigate to /
+    navigate("/match-room", {state: {roomCode: joinCode}});
+  };
+
   // post room code to connect
-  function handleJoinRoomCode(){
+  function handleJoinRoomCode(e){
+
+    const code = {
+      code: joinCode,
+    }
+
+    e.preventDefault();
     fetch("/api/room/join", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      // body: JSON.stringify(data),
+      body: JSON.stringify(code),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Success:", data);
+        // console.log("Success:", data);
+        navigateMatchRoom();
       })
       .catch((error) => {
         console.error("Error:", error);

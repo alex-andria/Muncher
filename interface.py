@@ -3,19 +3,43 @@ from dataclasses import dataclass
 from typing import Dict, List
 import random
 
-foods = {
-    "Mexican",
-    "Vietnamese",
-    "French",
-    "Filipino",
-    "Tex-Mex",
-    "Italian",
-    "Canadian",
-    "Japanese",
-    "Chinese,",
-    "Yemeni",
-    "American"
-}
+# foods = {
+#     "Mexican",
+#     "Vietnamese",
+#     "French",
+#     "Filipino",
+#     "Tex-Mex",
+#     "Italian",
+#     "Canadian",
+#     "Japanese",
+#     "Chinese,",
+#     "Yemeni",
+#     "American"
+# }
+
+@dataclass
+class Cuisine:
+    cuisine: str
+    imageUrl: str
+
+foods = [
+    Cuisine("Canadian", "/CuisineImages/Canadian.jpg"),
+    Cuisine("Filipino", "/CuisineImages/Filipino.jpg"),
+    Cuisine("French", "/CuisineImages/French.jpg"),
+    Cuisine("Italian", "/CuisineImages/Italian.jpg"),
+    Cuisine("Mexican", "/CuisineImages/Mexican.jpg"),
+    Cuisine("Vietnamese", "/CuisineImages/Vietnamese.jpg"),
+    Cuisine("Tex-Mex", "/CuisineImages/Tex-Mex.jpg"),
+    Cuisine("Japanese", "/CuisineImages/Japanese.jpg"),
+    Cuisine("Yemeni", "/CuisineImages/Yemeni.jpeg"),
+    Cuisine("American", "/CuisineImages/American.png"),
+    Cuisine("Chinese", "/CuisineImages/Chinese.jpg")
+]
+
+food_dict = {}
+
+for food in foods:
+    food_dict[food.cuisine] = food.imageUrl
 
 class Storage(ABC):
     @abstractmethod
@@ -101,9 +125,16 @@ class InMemoryStorage(Storage):
         return code in self.rooms
 
     def record_action(self, username, action, food, code):
+        if code not in self.rooms:
+            return "Invalid room code"
+        elif food not in food_dict:
+            return "Invalid food: " + food
         room = self.rooms[code]
+        if username not in room.swipes:
+            return "User not in room"
         userSwipes = room.swipes[username]
         userSwipes.append(SwipeAction(action, food))
+        return None
 
     # To Debug matching
     def find_match(self, code):
@@ -137,8 +168,9 @@ class InMemoryStorage(Storage):
             if swipe.action == "yes":
                 yeses.append(swipe.food)
         
-        return random.sample(set(foods).difference(set(yeses)), 1)
-        
+        selected_food = random.sample(set(food_dict.keys()).difference(set(yeses)), 1)[0]
+
+        return Cuisine(selected_food, food_dict[selected_food])
 
 
         return "Cuisine is: "

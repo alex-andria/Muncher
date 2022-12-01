@@ -29,7 +29,7 @@ function App() {
   console.log("After first signin modal")
   return (
    <>
-    <NavBar />
+    <NavBar setUser={setUser}/>
     <main>
     <br/><br/><br/><br/><br/>
       <Routes>

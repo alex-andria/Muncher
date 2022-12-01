@@ -2,6 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function NavBar({ user, setUser }) {
+  
   function handleLogOut() {
     fetch("/api/logout", { method: "DELETE" }).then((r) => {
       if (r.ok) {
