@@ -1,28 +1,31 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import {Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
-function HomePage(){
+function HomePage() {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
+  const navigateCreateRoom = () => {
+    // 👇️ navigate to /
+    navigate("/create-room");
+  };
 
-    const navigateCreateRoom = () => {
-        // 👇️ navigate to /
-        navigate('/create-room');
-    };
+  const navigateJoinRoom = () => {
+    // 👇️ navigate to /
+    navigate("/join-room");
+  };
 
-    const navigateJoinRoom = () => {
-        // 👇️ navigate to /
-        navigate('/join-room');
-    };
-
-    return(
-        <>  
-            <button type='button' onClick={navigateCreateRoom} >Create Room</button>
-            <br/> <br/> <br/>
-            <button type='button' onClick={navigateJoinRoom} >Join Room</button>
-        </>
-    );
+  return (
+    <>
+      <button type="button" onClick={navigateCreateRoom}>
+        Create Room
+      </button>
+      <br /> <br /> <br />
+      <button type="button" onClick={navigateJoinRoom}>
+        Join Room
+      </button>
+    </>
+  );
 }
 
 export default HomePage;
