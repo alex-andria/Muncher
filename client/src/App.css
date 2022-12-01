@@ -20,6 +20,23 @@
   align-items: center;
 }
 
+/* navbar start */
+
+/* .navbar-custom {
+  background-color: #FFF5EB;
+} */
+
+.btn-primary {
+  background-color: #B2B8A3;
+  border: #B2B8A3;
+  margin: 10px;
+}
+
+.btn-primary:hover {
+  background-color: #F4C7AB;
+}
+/* navbar end */
+
 .app {
   overflow: hidden;
 }
@@ -78,10 +95,6 @@ h2 {
   width: 100%;
   height: 100%;
 }
-
-/* .swipe:last-of-type {
-
-} */
 
 .card h3 {
   position: absolute;

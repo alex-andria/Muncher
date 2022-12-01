@@ -1,5 +1,5 @@
 import React from "react";
-import CuisineCard from "./CuisineCard";
+import CuisineCard from "../CuisineCard";
 
 function MatchRoom(){
 
