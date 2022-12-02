@@ -52,12 +52,11 @@ const db = [
 function CuisineCard({ roomCode }) {
   const [currentIndex, setCurrentIndex] = useState(db.length - 1);
   const [lastDirection, setLastDirection] = useState();
-  // const [cuisineType, setCuisineType] = useState("");
   const [errors, setErrors] = useState([]);
 
   // fetch request for backend database
   function handleSwipeAction(cuisineName) {
-
+    console.log(`last direction = ${lastDirection}`)
     let answer = "";
     lastDirection === 'right' ? answer = 'yes' : answer = 'no';
 
