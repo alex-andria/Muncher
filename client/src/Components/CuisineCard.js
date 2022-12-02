@@ -52,13 +52,14 @@ const db = [
 function CuisineCard({ roomCode }) {
   const [currentIndex, setCurrentIndex] = useState(db.length - 1);
   const [lastDirection, setLastDirection] = useState();
+  const [cuisineName, setCuisineName] = useState("");
   const [errors, setErrors] = useState([]);
 
   // fetch request for backend database
-  function handleSwipeAction(cuisineName) {
-    console.log(`last direction = ${lastDirection}`)
+  function handleSwipeAction() {
+    console.log(`last direction = ${lastDirection}`);
     let answer = "";
-    lastDirection === 'right' ? answer = 'yes' : answer = 'no';
+    lastDirection === "right" ? (answer = "yes") : (answer = "no");
 
     const actionRecorded = {
       code: roomCode,
@@ -111,7 +112,7 @@ function CuisineCard({ roomCode }) {
   const swiped = (direction, nameToDelete, index) => {
     setLastDirection(direction);
     updateCurrentIndex(index - 1);
-    handleSwipeAction(nameToDelete);
+    setCuisineName(nameToDelete);
   };
 
   const outOfFrame = (name, idx) => {
@@ -195,9 +196,12 @@ function CuisineCard({ roomCode }) {
         </button>
       </div>
       {lastDirection ? (
-        <h2 key={lastDirection} className="infoText">
-          You swiped {lastDirection}
-        </h2>
+        <>
+          {handleSwipeAction()}
+          <h2 key={lastDirection} className="infoText">
+            You swiped {lastDirection}
+          </h2>
+        </>
       ) : (
         <h2 className="infoText">
           Swipe a card or press a button to get Restore Card button visible!
