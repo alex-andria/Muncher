@@ -1,9 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import NavBar from "./Components/NavBar";
-import {Routes, Route } from "react-router-dom";
+import {Routes, Route, useNavigate } from "react-router-dom";
 import HomePage from "./Components/HomePage";
-import MatchRoom from "./Components/MatchRoom";
+import MatchRoom from "./Components/RoomComponents/MatchRoom";
+import CreateRoom from "./Components/RoomComponents/CreateRoom";
+import JoinRoom from "./Components/RoomComponents/JoinRoom";
 import SignIn from "./Components/Auth/SignIn";
 
 import './App.css';
@@ -27,11 +29,14 @@ function App() {
   console.log("After first signin modal")
   return (
    <>
-    <NavBar />
+    <NavBar setUser={setUser}/>
     <main>
+    <br/><br/><br/><br/><br/>
       <Routes>
         <Route path="/" element={<HomePage/>}/>
         <Route path="/match-room" element={<MatchRoom/>}/>
+        <Route path="/create-room" element={<CreateRoom/>}/>
+        <Route path="/join-room" element={<JoinRoom/>}/>
         {/* <Route path="/sign-in" element={<SignIn onLogin={setUser}/>}/> */}
       </Routes>
     </main>
