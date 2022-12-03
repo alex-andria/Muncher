@@ -155,11 +155,10 @@ class InMemoryStorage(Storage):
         intersection = username1Yeses.intersection(username2Yeses)
 
         if len(intersection) == 0:
-            return "No match"
+            return {"response": "No match"}, 200
         if len(intersection) != 1:
-            return "Error! Too many matches"
-        
-        return list(intersection)[0]
+            return {"response": "Error! Too many matches"}, 400
+        return {"response": list(intersection)[0]}, 200
     
     def get_next_cuisine(self, code, user):
         yeses = []

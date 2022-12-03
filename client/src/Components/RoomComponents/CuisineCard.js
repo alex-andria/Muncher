@@ -53,11 +53,12 @@ function CuisineCard({ roomCode }) {
   const [currentIndex, setCurrentIndex] = useState(db.length - 1);
   const [lastDirection, setLastDirection] = useState();
   const [cuisineName, setCuisineName] = useState("");
+  const [match, setMatch] = useState("")
   const [errors, setErrors] = useState([]);
 
   // fetch request for backend database
   function handleSwipeAction() {
-    console.log(`last direction = ${lastDirection}`);
+    // console.log(`last direction = ${lastDirection}`);
     let answer = "";
     lastDirection === "right" ? (answer = "yes") : (answer = "no");
 
@@ -66,8 +67,8 @@ function CuisineCard({ roomCode }) {
       action: answer,
       food: cuisineName,
     };
-    console.log(actionRecorded);
 
+    //api post request to record swipe action from user
     fetch("/api/room/swipe", {
       method: "POST",
       body: JSON.stringify(actionRecorded),
@@ -76,14 +77,40 @@ function CuisineCard({ roomCode }) {
         "Content-Type": "application/json",
       },
     }).then((data) => {
-      console.log(data);
+      // console.log(data);
       if (data.ok) {
+        // r.json().then((user) => setUser(user));
         console.log(data);
       } else {
         data.json().then((err) => {
           console.log(err.error);
           setErrors(err.error);
         });
+      }
+    });
+
+  }
+
+  // api request to get cuisine match of users within the room
+  function handleFindMatch(){
+
+    const jsonRoomCode = {
+      code: roomCode,
+    }
+
+    fetch("/api/room/match", {
+      method: "POST",
+      body: JSON.stringify(jsonRoomCode),
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((data) => {
+      if (data.ok) {
+        data.json().then((match) => setMatch(match.response));
+        console.log(`Match response: ${match}`);
+      } else {
+        data.json().then((errors) => setErrors(errors.response));
       }
     });
   }
@@ -198,6 +225,7 @@ function CuisineCard({ roomCode }) {
       {lastDirection ? (
         <>
           {handleSwipeAction()}
+          {handleFindMatch()}
           <h2 key={lastDirection} className="infoText">
             You swiped {lastDirection}
           </h2>

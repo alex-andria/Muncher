@@ -160,9 +160,9 @@ def record_action():
     return { "message": "action recorded" }, 200
 
 #find a match between users
-@app.get('/api/room/match')
+@app.post('/api/room/match')
 def find_match():
-    code = request.form['code']
+    code = request.json['code']
     return storage.find_match(code)
 
 @app.get('/api/cuisine/next')
