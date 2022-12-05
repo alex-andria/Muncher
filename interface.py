@@ -141,7 +141,12 @@ class InMemoryStorage(Storage):
         room = self.rooms[code]
         users = list(room.swipes.keys())
         username1 = users[0]
-        username2 = users[1]
+        username2 = users[1] if len(users) > 1 else "empty"
+        # print(f"users is: {users}")
+        # print(f"username 2 is: {username2}")
+
+        if username2 == "empty":
+            return {"response": "No user 2"}, 200
 
         username1Yeses = set()
         for swipe in room.swipes[username1]:
@@ -154,10 +159,12 @@ class InMemoryStorage(Storage):
                 username2Yeses.add(swipe.food)
         intersection = username1Yeses.intersection(username2Yeses)
 
+        if username2 == "empty":
+            return{"response": "No user 2"}, 200
         if len(intersection) == 0:
             return {"response": "No match"}, 200
         if len(intersection) != 1:
-            return {"response": "Error! Too many matches"}, 400
+            return {"response": "Error! Too many matches"}, 200
         return {"response": list(intersection)[0]}, 200
     
     def get_next_cuisine(self, code, user):
