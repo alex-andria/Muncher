@@ -15,7 +15,7 @@ function NavBar({ user, setUser }) {
     <nav className="navbar navbar-expand-lg fixed-top navbar-custom">
       <div className="container-fluid">
         <a className="navbar-brand" href="/">
-          Being Present
+          Muncher
         </a>
         <button
           className="navbar-toggler"
