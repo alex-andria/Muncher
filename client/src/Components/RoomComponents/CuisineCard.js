@@ -115,6 +115,12 @@ function CuisineCard({ roomCode }) {
     });
   }
 
+  //modal to appear while waiting for user 2 to join room 
+
+  //modal to appear once match is made
+
+  //function to check if room exists or not
+
   // used for outOfFrame closure
   const currentIndexRef = useRef(currentIndex);
 
