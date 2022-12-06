@@ -140,6 +140,12 @@ def join_room():
         return {"response": "Welcome to your room!"}, 200
     return {"error": "Room not found!"}, 404
 
+# start a room
+@app.post('/api/room/start')
+def start_room():
+    code = request.json['code']
+    return storage.start_room(code)
+
 # exit a room
 # @app.post('/api/room/exit')
 

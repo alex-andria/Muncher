@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Dict, List
 import random
+import json
 
 # foods = {
 #     "Mexican",
@@ -136,7 +137,23 @@ class InMemoryStorage(Storage):
         userSwipes.append(SwipeAction(action, food))
         return None
 
-    # To Debug matching
+    # start room
+    def start_room(self, code):
+        room = self.rooms[code]
+        users = list(room.swipes.keys())
+        username1 = users[0]
+        username2 = users[1] if len(users) > 1 else "empty"
+
+        if username2 == "empty":
+            return {"response": "No user 2"}, 400
+        else:
+            userList = {
+                "user_1": username1,
+                "user_2": username2,
+            }
+            return json.dumps(userList)
+
+    # find match through swipe actions
     def find_match(self, code):
         room = self.rooms[code]
         users = list(room.swipes.keys())
