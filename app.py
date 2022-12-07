@@ -144,6 +144,7 @@ def join_room():
 @app.post('/api/room/start')
 def start_room():
     code = request.json['code']
+    print(code)
     return storage.start_room(code)
 
 # exit a room

@@ -139,7 +139,9 @@ class InMemoryStorage(Storage):
 
     # start room
     def start_room(self, code):
+        print(self.rooms.keys())
         room = self.rooms[code]
+        print(room)
         users = list(room.swipes.keys())
         username1 = users[0]
         username2 = users[1] if len(users) > 1 else "empty"
@@ -147,11 +149,8 @@ class InMemoryStorage(Storage):
         if username2 == "empty":
             return {"response": "No user 2"}, 400
         else:
-            userList = {
-                "user_1": username1,
-                "user_2": username2,
-            }
-            return json.dumps(userList)
+            return users
+
 
     # find match through swipe actions
     def find_match(self, code):
@@ -176,8 +175,6 @@ class InMemoryStorage(Storage):
                 username2Yeses.add(swipe.food)
         intersection = username1Yeses.intersection(username2Yeses)
 
-        if username2 == "empty":
-            return{"response": "No user 2"}, 200
         if len(intersection) == 0:
             return {"response": "No match"}, 200
         if len(intersection) != 1:

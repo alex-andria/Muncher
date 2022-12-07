@@ -1,5 +1,6 @@
-import React, { useState, useMemo, useRef } from "react";
+import React, { useState, useMemo, useRef, useEffect } from "react";
 import TinderCard from "react-tinder-card";
+import MatchFound from "./MatchFound";
 
 // temporary database
 const db = [
@@ -56,6 +57,15 @@ function CuisineCard({ roomCode }) {
   const [match, setMatch] = useState("")
   const [errors, setErrors] = useState([]);
 
+  // useEffect(() => {
+  //   const myInterval = setInterval(handleFindMatch, 2000);
+
+  //   return () => {
+  //     // should clear the interval when the component unmounts
+  //     clearInterval(myInterval);
+  //   };
+  // }, []);
+
   // fetch request for backend database
   function handleSwipeAction() {
     // console.log(`last direction = ${lastDirection}`);
@@ -107,8 +117,11 @@ function CuisineCard({ roomCode }) {
       },
     }).then((data) => {
       if (data.ok) {
-        data.json().then((match) => setMatch(match.response));
-        console.log(`Match response: ${match}`);
+        data.json().then((match) => {
+          setMatch(match.response)
+          console.log(`Match response: ${match.response}`);
+        });
+        
       } else {
         data.json().then((errors) => setErrors(errors.response));
       }
@@ -170,6 +183,9 @@ function CuisineCard({ roomCode }) {
     updateCurrentIndex(newIndex);
     await childRefs[newIndex].current.restoreCard();
   };
+
+  console.log(match);
+  if (match != "No match" && match !== null) return <MatchFound match={match} />
 
   return (
     <div>
