@@ -43,12 +43,12 @@ function MatchRoom() {
       });
   };
 
-  if (!usersLoaded) return <LoadingRoom userList={usersLoaded} />
+  // if (!usersLoaded) return <LoadingRoom userList={usersLoaded} />
   
   return (
     <>
       <h1>Match Room</h1>
-      <p>room code: {state.roomCode}</p>
+      <h3>Room code: <span className="green-class">{state.roomCode}</span></h3>
       <CuisineCard roomCode = {state.roomCode} />
     </>
   );

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import style from "./Auth.css";
 
-function SignIn({onLogin}) {
+function SignIn({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [newUserUsername, setNewUserUsername] = useState("");
@@ -31,12 +31,12 @@ function SignIn({onLogin}) {
       console.log(data);
       if (data.ok) {
         onLogin(login.username);
-      }else{
+      } else {
         data.json().then((err) => {
           console.log(err.error);
           setErrors(err.error);
         });
-      } 
+      }
     });
   }
 
@@ -61,14 +61,13 @@ function SignIn({onLogin}) {
       console.log(data);
       if (data.ok) {
         onLogin(newUser.username);
-      }else{
+      } else {
         data.json().then((err) => {
           console.log(err.error);
           setErrors(err.error);
         });
-      } 
+      }
     });
-
   }
 
   return (
@@ -90,7 +89,6 @@ function SignIn({onLogin}) {
             Sign Up
           </label>
           <div className="login-form">
-
             {/* log-in form */}
             <form onSubmit={handleSignInSubmit}>
               <div className="sign-in-htm">
@@ -130,6 +128,11 @@ function SignIn({onLogin}) {
                 {/* <div className="foot-lnk">
                   <a href="#forgot">Forgot Password?</a>
                 </div> */}
+                <div className="foot-lnk">
+                  <label className="" htmlFor="tab-2" style={{color: "#fefefe"}}>
+                    Not a member? Create account
+                  </label>
+                </div>
               </div>
             </form>
 
@@ -161,7 +164,7 @@ function SignIn({onLogin}) {
                 </div>
                 <div className="group">
                   <label htmlFor="pass" className="label">
-                    Repeat Password
+                    Confirm Password
                   </label>
                   <input
                     id="pass"
@@ -186,11 +189,12 @@ function SignIn({onLogin}) {
                 <h3>{errors}</h3>
                 <div className="hr"></div>
                 <div className="foot-lnk">
-                  <label htmlFor="tab-1">Already Member?</label>
+                  <label className="" htmlFor="tab-1" style={{color: "#fefefe"}}>
+                    Already have an account? Log-in
+                  </label>
                 </div>
               </div>
             </form>
-            
           </div>
         </div>
       </div>
