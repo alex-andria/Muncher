@@ -162,7 +162,7 @@ class InMemoryStorage(Storage):
         # print(f"username 2 is: {username2}")
 
         if username2 == "empty":
-            return {"response": "No user 2"}, 200
+            return {"response": "No user 2"}, 400
 
         username1Yeses = set()
         for swipe in room.swipes[username1]:
@@ -176,7 +176,7 @@ class InMemoryStorage(Storage):
         intersection = username1Yeses.intersection(username2Yeses)
 
         if len(intersection) == 0:
-            return {"response": "No match"}, 200
+            return {"response": "No match"}, 400
         if len(intersection) != 1:
             return {"response": "Error! Too many matches"}, 200
         return {"response": list(intersection)[0]}, 200
