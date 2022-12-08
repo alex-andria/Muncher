@@ -5,6 +5,7 @@ function MatchFound({match}){
     return (
         <>  
             <h1>You both matched on {match}!</h1>
+            <p>test</p>
         </>
     );
 }
