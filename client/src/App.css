@@ -6,7 +6,8 @@
   min-height: 100vh;
   overflow: hidden;
   /* background: linear-gradient(#fff, #999); */
-  background: linear-gradient(#e66465, #9198e5);
+  /* background:#f0f4f9; */
+  background:#e9f9d9;
 }
 
 * {
@@ -21,20 +22,31 @@
 }
 
 /* navbar start */
+.navbar-brand {
+  color: #679436
+}
+.navbar-brand:hover {
+  color: #679436
+}
 
-/* .navbar-custom {
-  background-color: #FFF5EB;
-} */
+.navbar-custom {
+  background-color: #fcfdfc;
+}
 
+/* logout button */
 .btn-primary {
-  background-color: #B2B8A3;
-  border: #B2B8A3;
+  color:#679436;
+  background-color: transparent;
+  border: solid #679436;
   margin: 10px;
 }
 
 .btn-primary:hover {
-  background-color: #F4C7AB;
+  background-color: #679436;
+  border: solid #679436;
 }
+
+
 /* navbar end */
 
 .app {
@@ -58,12 +70,22 @@
 
 h1 {
   font-family: 'Damion', cursive;
-  color: #fff;
+  color: #3d3a25;
   text-shadow: 0px 0px 60px 0px rgba(0,0,0,0.30);
 }
 
 h2 {
   color: #fff;
+}
+
+/* room code */
+h3 {
+  color: #666248;
+}
+
+.green-class {
+  color: #679436;
+  font-weight: bold;
 }
 
 .swipe {
@@ -85,7 +107,7 @@ h2 {
   width: 80vw;
   max-width: 260px;
   height: 300px;
-  box-shadow: 0px 0px 60px 0px rgba(0,0,0,0.30);
+  box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.08);
   border-radius: 20px;
   background-size: cover;
   background-position: center;
@@ -101,19 +123,20 @@ h2 {
   bottom: 0;
   margin: 10px;
   color: #fff;
+  
 }
 
 .infoText {
   width: 100%;
   justify-content: center;
   display: flex;
-  color: #fff;
+  color: #666248;
   animation-name: popup;
   animation-duration: 800ms;
 }
 
 .buttons {
-  margin: 20px;
+  margin: 10px;
   display: flex;
   flex-wrap: wrap;
   display: block;
@@ -128,25 +151,53 @@ h2 {
   }
 }
 
-.buttons button {
+/* swipe buttons */
+.buttons-left {
   flex-shrink: 0;
   padding: 10px;
+  border-style: solid;
   border-radius: 5px;
-  border: none;
-  color: #fff;
+  border: solid #679436;
+  color:#679436;
   font-size: 18px;
-  background-color: #9198e5;
+  background-color: transparent;
   transition: 200ms;
   margin: 10px;
   font-weight: bolder;
   width: 160px;
-  box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.10);
+  /* box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.10); */
 }
 
-.buttons button:hover {
+.buttons-left:hover {
   transform: scale(1.05);
+  color: #fefefe;
+  background-color: #679436;
+  border: solid #679436;
 }
 
+
+.buttons-right {
+  flex-shrink: 0;
+  padding: 10px;
+  border-style: solid;
+  border-radius: 5px;
+  border: solid #679436;
+  color:#679436;
+  font-size: 18px;
+  background-color: transparent;
+  transition: 200ms;
+  margin: 10px;
+  font-weight: bolder;
+  width: 160px;
+  /* box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.10); */
+}
+
+.buttons-right:hover {
+  transform: scale(1.05);
+  color: #fefefe;
+  background-color: #679436;
+  border: solid #679436;
+}
 @keyframes popup {
   0%   { transform: scale(1,1) }
   10%  { transform: scale(1.1,1.1) }

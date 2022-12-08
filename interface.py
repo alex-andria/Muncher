@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Dict, List
 import random
+import json
 
 # foods = {
 #     "Mexican",
@@ -136,12 +137,32 @@ class InMemoryStorage(Storage):
         userSwipes.append(SwipeAction(action, food))
         return None
 
-    # To Debug matching
+    # start room
+    def start_room(self, code):
+        print(self.rooms.keys())
+        room = self.rooms[code]
+        print(room)
+        users = list(room.swipes.keys())
+        username1 = users[0]
+        username2 = users[1] if len(users) > 1 else "empty"
+
+        if username2 == "empty":
+            return {"response": "No user 2"}, 400
+        else:
+            return users
+
+
+    # find match through swipe actions
     def find_match(self, code):
         room = self.rooms[code]
         users = list(room.swipes.keys())
         username1 = users[0]
-        username2 = users[1]
+        username2 = users[1] if len(users) > 1 else "empty"
+        # print(f"users is: {users}")
+        # print(f"username 2 is: {username2}")
+
+        if username2 == "empty":
+            return {"response": "No user 2"}, 200
 
         username1Yeses = set()
         for swipe in room.swipes[username1]:
@@ -157,7 +178,7 @@ class InMemoryStorage(Storage):
         if len(intersection) == 0:
             return {"response": "No match"}, 200
         if len(intersection) != 1:
-            return {"response": "Error! Too many matches"}, 400
+            return {"response": "Error! Too many matches"}, 200
         return {"response": list(intersection)[0]}, 200
     
     def get_next_cuisine(self, code, user):

@@ -1,5 +1,6 @@
-import React, { useState, useMemo, useRef } from "react";
+import React, { useState, useMemo, useRef, useEffect } from "react";
 import TinderCard from "react-tinder-card";
+import MatchFound from "./MatchFound";
 
 // temporary database
 const db = [
@@ -56,6 +57,15 @@ function CuisineCard({ roomCode }) {
   const [match, setMatch] = useState("")
   const [errors, setErrors] = useState([]);
 
+  // useEffect(() => {
+  //   const myInterval = setInterval(handleFindMatch, 2000);
+
+  //   return () => {
+  //     // should clear the interval when the component unmounts
+  //     clearInterval(myInterval);
+  //   };
+  // }, []);
+
   // fetch request for backend database
   function handleSwipeAction() {
     // console.log(`last direction = ${lastDirection}`);
@@ -107,8 +117,11 @@ function CuisineCard({ roomCode }) {
       },
     }).then((data) => {
       if (data.ok) {
-        data.json().then((match) => setMatch(match.response));
-        console.log(`Match response: ${match}`);
+        data.json().then((match) => {
+          setMatch(match.response)
+          console.log(`Match response: ${match.response}`);
+        });
+        
       } else {
         data.json().then((errors) => setErrors(errors.response));
       }
@@ -171,6 +184,9 @@ function CuisineCard({ roomCode }) {
     await childRefs[newIndex].current.restoreCard();
   };
 
+  console.log(match);
+  // if (match != "No match" || match !== null) return <MatchFound match={match} />
+
   return (
     <div>
       <link
@@ -181,7 +197,6 @@ function CuisineCard({ roomCode }) {
         href="https://fonts.googleapis.com/css?family=Alatsi&display=swap"
         rel="stylesheet"
       />
-      <h1>React Tinder Card</h1>
       <br></br>
       <br></br>
       <br></br>
@@ -210,6 +225,7 @@ function CuisineCard({ roomCode }) {
       <br></br>
       <div className="buttons">
         <button
+        className="buttons-left"
           style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
           onClick={() => swipe("left")}
         >
@@ -222,6 +238,7 @@ function CuisineCard({ roomCode }) {
           Undo swipe!
         </button> */}
         <button
+        className="buttons-right"
           style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
           onClick={() => swipe("right")}
         >
@@ -238,7 +255,7 @@ function CuisineCard({ roomCode }) {
         </>
       ) : (
         <h2 className="infoText">
-          Swipe a card or press a button to get Restore Card button visible!
+          Swipe a card or press a button to record your food preference!
         </h2>
       )}
     </div>
