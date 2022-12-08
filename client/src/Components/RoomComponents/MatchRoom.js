@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import { useRef } from "react";
 import CuisineCard from "./CuisineCard";
 import LoadingRoom from "./LoadingRoom";
 import {usePromiseTracker, trackPromise} from "react-promise-tracker";
@@ -14,15 +15,17 @@ function MatchRoom() {
   }
   console.log(jsonRoomCode);
 
-  useEffect(() => {
-    const myInterval = setInterval(checkUserList, 2000);
-    // const matchCheckInterval = setInterval(checkUserList, 2000);
+  let myInterval = setInterval(checkUserList, 2000);
 
-    return () => {
-      // should clear the interval when the component unmounts
-      clearInterval(myInterval);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const myInterval = setInterval(checkUserList, 2000);
+  //   // const matchCheckInterval = setInterval(checkUserList, 2000);
+
+  //   return () => {
+  //     // should clear the interval when the component unmounts
+  //     clearInterval(myInterval);
+  //   };
+  // }, []);
 
   function checkUserList(){
       setLoading(true);
@@ -35,23 +38,28 @@ function MatchRoom() {
       }).then((r) => {
         if (r.ok) {
           r.json().then((users) => setUsersLoaded(users));
-          // console.log(usersLoaded);
-          // r.json().then(console.log(r));
+          console.log(usersLoaded);
+          clearInterval(myInterval);
         } else {
           setUsersLoaded(null);
+          console.log(r.response)
         }
       });
   };
 
-  // if (!usersLoaded) return <LoadingRoom userList={usersLoaded} />
+  if (!usersLoaded){
+    return <LoadingRoom userList={usersLoaded} />
+  }else{
+    clearInterval(myInterval);
+    return (
+      <>
+        <h1>Match Room</h1>
+        <h3>Room code: <span className="green-class">{state.roomCode}</span></h3>
+        <CuisineCard roomCode = {state.roomCode} />
+      </>
+    );
+  }
   
-  return (
-    <>
-      <h1>Match Room</h1>
-      <h3>Room code: <span className="green-class">{state.roomCode}</span></h3>
-      <CuisineCard roomCode = {state.roomCode} />
-    </>
-  );
 }
 
 export default MatchRoom;
