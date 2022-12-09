@@ -17,11 +17,11 @@ function HomePage() {
 
   return (
     <>
-      <button type="button" onClick={navigateCreateRoom}>
+      <button className="buttons-room" type="button" onClick={navigateCreateRoom}>
         Create Room
       </button>
       <br /> <br /> <br />
-      <button type="button" onClick={navigateJoinRoom}>
+      <button className="buttons-room" type="button" onClick={navigateJoinRoom}>
         Join Room
       </button>
     </>

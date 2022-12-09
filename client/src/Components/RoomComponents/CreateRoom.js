@@ -46,7 +46,7 @@ function CreateRoom() {
   return (
     <>
       <h1>Create Room</h1>
-      <button type="button" onClick={handleCreateCodeButton}>
+      <button className="buttons-room" type="button" onClick={handleCreateCodeButton}>
         get room code
       </button>
       {roomCode ? (
@@ -54,15 +54,15 @@ function CreateRoom() {
           <div className="container">
             <div className="code-snippet">
               <div className="code-section">
-              <pre style={{float: "left"}}>{roomCode}</pre>
+              <pre style={{float: "left", color: "#666248"}}>{roomCode}</pre>
               <CopyToClipboard text={roomCode} onCopy={onCopyText}>
-                <span >{isCopied ? "Copied!" : <MdContentCopy />}</span>
+                <span >{isCopied ? "Copied!" : <MdContentCopy style={{color: "#666248"}}/>}</span>
               </CopyToClipboard>
               </div>
             </div>
           </div>
-          <button type="button" onClick={navigateMatchRoom}>
-            Join Room
+          <button className="buttons-room" type="button" onClick={navigateMatchRoom}>
+            Start Room
           </button>
         </h2>
       ) : (
