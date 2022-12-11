@@ -38,12 +38,12 @@ function JoinRoom() {
 
   return (
     <>
-      <h1>Join a Room</h1>
+      <h1>Join Room</h1>
       <form onSubmit={handleJoinRoomCode}>
-        <label htmlFor="room-code">Enter room code:</label>
+        <label style={{color: "#666248", padding: "6px"}} htmlFor="room-code">Enter room code:</label>
         <br/>
-        <input type="text" id="room-code" name="room-code" onChange={(e) => setJoinCode(e.target.value)} />
-        <input type="submit" value="Submit"></input>
+        <input className="roomCode-input" type="text" id="room-code" name="room-code" onChange={(e) => setJoinCode(e.target.value)} />
+        <input className="buttons-room" type="submit" value="Submit"></input>
       </form>
     </>
   );

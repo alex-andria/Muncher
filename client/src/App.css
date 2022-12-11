@@ -30,7 +30,7 @@
 }
 
 .navbar-custom {
-  background-color: #fcfdfc;
+  background-color: #ffffff;
 }
 
 /* logout button */
@@ -69,7 +69,13 @@
 }
 
 h1 {
-  font-family: 'Damion', cursive;
+  font-family: 'Open Sans', sans-serif;
+  color: #3d3a25;
+  text-shadow: 0px 0px 60px 0px rgba(0,0,0,0.30);
+}
+
+.headers-dark {
+  font-family: 'Open Sans', sans-serif;
   color: #3d3a25;
   text-shadow: 0px 0px 60px 0px rgba(0,0,0,0.30);
 }
@@ -126,6 +132,15 @@ h3 {
   
 }
 
+.roomCode-input{
+	border:none;
+	/* color: #fefefe; */
+	color: black;
+	padding:5px 5px;
+	border-radius:10px;
+	background:rgb(255, 255, 255);
+}
+
 .infoText {
   width: 100%;
   justify-content: center;
@@ -152,6 +167,28 @@ h3 {
 }
 
 /* swipe buttons */
+.buttons-room {
+  padding: 10px;
+  border-style: solid;
+  border-radius: 5px;
+  border: solid #679436;
+  color:#679436;
+  font-size: 18px;
+  background-color: transparent;
+  transition: 200ms;
+  margin: 10px;
+  /* font-weight: bolder; */
+  width: 160px;
+  /* box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.10); */
+}
+
+.buttons-room:hover {
+  color: #fefefe;
+  background-color: #679436;
+  border: solid #679436;
+}
+
+
 .buttons-left {
   flex-shrink: 0;
   padding: 10px;

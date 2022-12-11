@@ -54,7 +54,7 @@ function CuisineCard({ roomCode }) {
   const [currentIndex, setCurrentIndex] = useState(db.length - 1);
   const [lastDirection, setLastDirection] = useState();
   const [cuisineName, setCuisineName] = useState("");
-  const [match, setMatch] = useState("")
+  const [match, setMatch] = useState();
   const [errors, setErrors] = useState([]);
 
   // useEffect(() => {
@@ -98,15 +98,13 @@ function CuisineCard({ roomCode }) {
         });
       }
     });
-
   }
 
   // api request to get cuisine match of users within the room
-  function handleFindMatch(){
-
+  function handleFindMatch() {
     const jsonRoomCode = {
       code: roomCode,
-    }
+    };
 
     fetch("/api/room/match", {
       method: "POST",
@@ -118,17 +116,16 @@ function CuisineCard({ roomCode }) {
     }).then((data) => {
       if (data.ok) {
         data.json().then((match) => {
-          setMatch(match.response)
+          setMatch(match.response);
           console.log(`Match response: ${match.response}`);
         });
-        
       } else {
         data.json().then((errors) => setErrors(errors.response));
       }
     });
   }
 
-  //modal to appear while waiting for user 2 to join room 
+  //modal to appear while waiting for user 2 to join room
 
   //modal to appear once match is made
 
@@ -184,82 +181,135 @@ function CuisineCard({ roomCode }) {
     await childRefs[newIndex].current.restoreCard();
   };
 
-  console.log(match);
-  // if (match != "No match" || match !== null) return <MatchFound match={match} />
-
-  return (
-    <div>
-      <link
-        href="https://fonts.googleapis.com/css?family=Damion&display=swap"
-        rel="stylesheet"
-      />
-      <link
-        href="https://fonts.googleapis.com/css?family=Alatsi&display=swap"
-        rel="stylesheet"
-      />
-      <br></br>
-      <br></br>
-      <br></br>
-      <div className="cardContainer">
-        {db.map((character, index) => (
-          <TinderCard
-            ref={childRefs[index]}
-            className="swipe"
-            key={character.name}
-            onSwipe={(dir) => {
-              swiped(dir, character.name, index);
-            }}
-            onCardLeftScreen={() => outOfFrame(character.name, index)}
-          >
-            <div
-              style={{ backgroundImage: "url(" + character.url + ")" }}
-              className="card"
-            >
-              <h3>{character.name}</h3>
-            </div>
-          </TinderCard>
-        ))}
-      </div>
-      <br></br>
-      <br></br>
-      <br></br>
-      <div className="buttons">
-        <button
-        className="buttons-left"
-          style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
-          onClick={() => swipe("left")}
-        >
-          Swipe left!
-        </button>
+  console.log(typeof match);
+  if (match !== undefined) {
+    return (
+      <>
+        <MatchFound match={match}  />;
         {/* <button
-          style={{ backgroundColor: !canGoBack && "#c3c4d3" }}
-          onClick={() => goBack()}
+          type="button"
+          className="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModalCenter"
         >
-          Undo swipe!
-        </button> */}
-        <button
-        className="buttons-right"
-          style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
-          onClick={() => swipe("right")}
-        >
-          Swipe right!
+          Launch demo modal
         </button>
-      </div>
-      {lastDirection ? (
-        <>
-          {handleSwipeAction()}
-          {handleFindMatch()}
-          <h2 key={lastDirection} className="infoText">
-            You swiped {lastDirection}
+        <div
+          className="modal fade"
+          id="exampleModalCenter"
+          tabIndex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalCenterTitle"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog modal-dialog-centered" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLongTitle">
+                  Modal title
+                </h5>
+                <button
+                  type="button"
+                  className="close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">...</div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="button" className="btn btn-primary">
+                  Save changes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div> */}
+      </>
+    );
+  } else {
+    return (
+      <div>
+        <link
+          href="https://fonts.googleapis.com/css?family=Damion&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.googleapis.com/css?family=Alatsi&display=swap"
+          rel="stylesheet"
+        />
+        <br></br>
+        <br></br>
+        <br></br>
+        <div className="cardContainer">
+          {db.map((character, index) => (
+            <TinderCard
+              ref={childRefs[index]}
+              className="swipe"
+              key={character.name}
+              onSwipe={(dir) => {
+                swiped(dir, character.name, index);
+              }}
+              onCardLeftScreen={() => outOfFrame(character.name, index)}
+            >
+              <div
+                style={{ backgroundImage: "url(" + character.url + ")" }}
+                className="card"
+              >
+                <h3>{character.name}</h3>
+              </div>
+            </TinderCard>
+          ))}
+        </div>
+        <br></br>
+        <br></br>
+        <br></br>
+        <div className="buttons">
+          <button
+            className="buttons-left"
+            style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
+            onClick={() => swipe("left")}
+          >
+            Swipe left!
+          </button>
+          {/* <button
+            style={{ backgroundColor: !canGoBack && "#c3c4d3" }}
+            onClick={() => goBack()}
+          >
+            Undo swipe!
+          </button> */}
+          <button
+            className="buttons-right"
+            style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
+            onClick={() => swipe("right")}
+          >
+            Swipe right!
+          </button>
+        </div>
+        {lastDirection ? (
+          <>
+            {handleSwipeAction()}
+            {handleFindMatch()}
+            <h2 key={lastDirection} className="infoText">
+              You swiped {lastDirection}
+            </h2>
+          </>
+        ) : (
+          <h2 className="infoText">
+            Swipe a card or press a button to record your food preference!
           </h2>
-        </>
-      ) : (
-        <h2 className="infoText">
-          Swipe a card or press a button to record your food preference!
-        </h2>
-      )}
-    </div>
-  );
+        )}
+      </div>
+    );
+  }
 }
 
 export default CuisineCard;
