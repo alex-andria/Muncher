@@ -43,35 +43,81 @@ function CreateRoom() {
   //   setCopy("Copied: " + roomCode);
   // }
 
-  return (
-    <>
-      <h1>Create Room</h1>
-      <button className="buttons-room" type="button" onClick={handleCreateCodeButton}>
-        get room code
-      </button>
-      {roomCode ? (
-        <h2>
-          <div className="container">
-            <div className="code-snippet">
-              <div className="code-section">
-              <pre style={{float: "left", color: "#666248"}}>{roomCode}</pre>
+  if (roomCode) {
+    return (
+      <>
+      <h2 className="headers-dark">Room Code:</h2>
+      <h3>
+        <div className="container">
+          <div className="code-snippet">
+            <div className="code-section">
+              <pre style={{ float: "left", color: "#666248" }}>{roomCode}</pre>
               <CopyToClipboard text={roomCode} onCopy={onCopyText}>
-                <span >{isCopied ? "Copied!" : <MdContentCopy style={{color: "#666248"}}/>}</span>
+                <span>
+                  {isCopied ? (
+                    "Copied!" 
+                  ) : (
+                    <MdContentCopy style={{ color: "#666248", float: "right" }} />
+                  )}
+                </span>
               </CopyToClipboard>
-              </div>
             </div>
           </div>
-          <button className="buttons-room" type="button" onClick={navigateMatchRoom}>
-            Start Room
-          </button>
-        </h2>
-      ) : (
-        <>
-          <h2 className="infoText">room code will appear here</h2>
-        </>
-      )}
-    </>
-  );
+        </div>
+        <button
+          className="buttons-room"
+          type="button"
+          onClick={navigateMatchRoom}
+        >
+          Start Room
+        </button>
+      </h3>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <button
+          className="buttons-room"
+          type="button"
+          onClick={handleCreateCodeButton}
+        >
+          get room code
+        </button>
+        <h2 className="infoText">room code will appear here</h2>
+      </>
+    );
+  }
+
+  // return (
+  //   <>
+  //     <h1>Create Room</h1>
+  //     <button className="buttons-room" type="button" onClick={handleCreateCodeButton}>
+  //       get room code
+  //     </button>
+  //     {roomCode ? (
+  //       <h2>
+  //         <div className="container">
+  //           <div className="code-snippet">
+  //             <div className="code-section">
+  //             <pre style={{float: "left", color: "#666248"}}>{roomCode}</pre>
+  //             <CopyToClipboard text={roomCode} onCopy={onCopyText}>
+  //               <span >{isCopied ? "Copied!" : <MdContentCopy style={{color: "#666248"}}/>}</span>
+  //             </CopyToClipboard>
+  //             </div>
+  //           </div>
+  //         </div>
+  //         <button className="buttons-room" type="button" onClick={navigateMatchRoom}>
+  //           Start Room
+  //         </button>
+  //       </h2>
+  //     ) : (
+  //       <>
+  //         <h2 className="infoText">room code will appear here</h2>
+  //       </>
+  //     )}
+  //   </>
+  // );
 }
 
 export default CreateRoom;

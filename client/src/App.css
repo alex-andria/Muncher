@@ -74,6 +74,12 @@ h1 {
   text-shadow: 0px 0px 60px 0px rgba(0,0,0,0.30);
 }
 
+.headers-dark {
+  font-family: 'Open Sans', sans-serif;
+  color: #3d3a25;
+  text-shadow: 0px 0px 60px 0px rgba(0,0,0,0.30);
+}
+
 h2 {
   color: #fff;
 }

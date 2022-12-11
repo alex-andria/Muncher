@@ -185,8 +185,8 @@ function CuisineCard({ roomCode }) {
   if (match !== undefined) {
     return (
       <>
-        <MatchFound match={match} />;
-        <button
+        <MatchFound match={match}  />;
+        {/* <button
           type="button"
           className="btn btn-primary"
           data-bs-toggle="modal"
@@ -232,7 +232,7 @@ function CuisineCard({ roomCode }) {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </>
     );
   } else {
