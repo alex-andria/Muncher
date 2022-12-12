@@ -299,7 +299,7 @@ function CuisineCard({ roomCode }) {
             {handleSwipeAction()}
             {handleFindMatch()}
             <h2 key={lastDirection} className="infoText">
-              You swiped {lastDirection}
+              You swiped {lastDirection} on {cuisineName} cuisine
             </h2>
           </>
         ) : (

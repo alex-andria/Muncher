@@ -100,6 +100,7 @@ function SignIn({ onLogin }) {
                     id="user"
                     type="text"
                     className="input"
+                    placeholder="username"
                     onChange={(e) => setUsername(e.target.value)}
                   />
                 </div>
@@ -111,6 +112,7 @@ function SignIn({ onLogin }) {
                     id="pass"
                     type="password"
                     className="input"
+                    placeholder="password"
                     data-type="password"
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -122,7 +124,7 @@ function SignIn({ onLogin }) {
                   </label>
                 </div> */}
                 <div className="group">
-                  <input type="submit" className="button" value="Sign In" />
+                  <input type="submit" className="button" value="Sign In" style={{color: "#fefefe", fontWeight: "550"}}/>
                 </div>
                 <div className="hr"></div>
                 {/* <div className="foot-lnk">
@@ -147,6 +149,7 @@ function SignIn({ onLogin }) {
                     id="user"
                     type="text"
                     className="input"
+                    placeholder="username"
                     onChange={(e) => setNewUserUsername(e.target.value)}
                   />
                 </div>
@@ -159,6 +162,7 @@ function SignIn({ onLogin }) {
                     type="password"
                     className="input"
                     data-type="password"
+                    placeholder="password"
                     onChange={(e) => setNewUserPassword(e.target.value)}
                   />
                 </div>
@@ -171,6 +175,7 @@ function SignIn({ onLogin }) {
                     type="password"
                     className="input"
                     data-type="password"
+                    placeholder="confirm password"
                     onChange={(e) =>
                       setNewUserPasswordConfirmation(e.target.value)
                     }
@@ -184,7 +189,7 @@ function SignIn({ onLogin }) {
                   <input id="pass" type="text" className="input" />
                 </div> */}
                 <div className="group">
-                  <input type="submit" className="button" value="Sign Up" />
+                  <input type="submit" className="button" value="Sign Up"  style={{color: "#fefefe", fontWeight: "550"}} />
                 </div>
                 <h3>{errors}</h3>
                 <div className="hr"></div>

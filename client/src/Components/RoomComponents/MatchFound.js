@@ -6,14 +6,14 @@ function MatchFound({match}){
     let url = `url(./CuisineImages/${match}.jpg)`;
     console.log(url);
     return (
-        <>  
-            <h1>You matched on {match} Food!</h1>
+        <div>  
+            <h1>You matched on {match} cuisine!</h1>
+            <div  className="cardContainer">
             <TinderCard
             //   ref={childRefs[index]}
               className="swipe"
             //   key={character.name}
-            style={{display: "block",
-                margin: "auto"}}
+            style={{paddingLeft: "300px"}}
             >
               <div
                 style={{ backgroundImage: url }}
@@ -22,7 +22,9 @@ function MatchFound({match}){
                 <h3>{match}</h3>
               </div>
             </TinderCard>
-        </>
+          </div>
+    
+        </div>
     );
 }
 
