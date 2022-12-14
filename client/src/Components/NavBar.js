@@ -1,11 +1,21 @@
 import React from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function NavBar({ user, setUser }) {
+
+  const navigate = useNavigate();
+
+  const navigateHome = () => {
+    // 👇️ navigate to /
+    navigate("/");
+  };
+
   
   function handleLogOut() {
     fetch("/api/logout", { method: "DELETE" }).then((r) => {
       if (r.ok) {
+        navigate("/");
         setUser(null);
       }
     });
