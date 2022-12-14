@@ -26,6 +26,8 @@ function App() {
 
   if (!user) return <SignIn onLogin={setUser} />
 
+  // to do - add an onboarding page on "/" before sign-up/sign-in
+
   console.log("After first signin modal")
   return (
    <>
