@@ -31,8 +31,7 @@ function HomePage() {
         console.error("Error:", error);
       });
     
-    navigate("/create-room", { state: { roomCode: roomCode } });
-    
+    // navigate("/create-room", { state: { roomCode: roomCode } });
   }
 
   const navigateJoinRoom = () => {
