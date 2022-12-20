@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Link, Routes, Route, useNavigate } from "react-router-dom";
+import {Routes, Route, useNavigate } from "react-router-dom";
+import {Link, useLocation} from 'react-router-dom';
 import MatchRoom from "./MatchRoom";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { MdContentCopy } from "react-icons/md";
 
 function CreateRoom() {
-  const [roomCode, setRoomCode] = useState();
+  // const [roomCode, setRoomCode] = useState();
+  const [newRoomCode, setNewRoomCode] = useState();
   const [isCopied, setIsCopied] = useState(false);
   const navigate = useNavigate();
+  const { state } = useLocation();
 
+  let roomCode = state.roomCode;
+  console.log(roomCode);
   const navigateMatchRoom = () => {
     // 👇️ navigate to /
     navigate("/match-room", { state: { roomCode: roomCode } });
@@ -31,7 +36,7 @@ function CreateRoom() {
     })
       .then((response) => response.json())
       .then((data) => {
-        setRoomCode(data.code);
+        setNewRoomCode(data.code);
       })
       .catch((error) => {
         console.error("Error:", error);
