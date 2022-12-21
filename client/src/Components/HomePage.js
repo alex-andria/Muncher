@@ -34,7 +34,6 @@ function HomePage() {
     
     // navigate("/create-room", { state: { roomCode: roomCode } });
   }
-  console.log(roomCode);
 
   const navigateJoinRoom = () => {
     // 👇️ navigate to /
