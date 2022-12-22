@@ -25,7 +25,7 @@ function HomePage() {
       .then((response) => response.json())
       .then((data) => {
         setRoomCode(data.code);
-        console.log(roomCode);
+        // console.log(roomCode);
         //debug why console isn't showing room code on first click
       })
       .catch((error) => {
