@@ -5,6 +5,9 @@ function MatchFound({match}){
     console.log(match);
     let url = `url(./CuisineImages/${match}.jpg)`;
     console.log(url);
+
+    //insert confetti here
+    
     return (
         <div>  
             <h1>You matched on {match} cuisine!</h1>

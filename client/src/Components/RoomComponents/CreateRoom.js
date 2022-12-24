@@ -6,13 +6,12 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { MdContentCopy } from "react-icons/md";
 
 function CreateRoom() {
-  // const [roomCode, setRoomCode] = useState();
-  const [newRoomCode, setNewRoomCode] = useState();
+  const { state } = useLocation();
+  const [roomCode, setRoomCode] = useState(state.roomCode);
   const [isCopied, setIsCopied] = useState(false);
   const navigate = useNavigate();
-  const { state } = useLocation();
 
-  let roomCode = state.roomCode;
+  // let roomCode = state.roomCode;
   console.log(roomCode);
   const navigateMatchRoom = () => {
     // 👇️ navigate to /
@@ -36,11 +35,12 @@ function CreateRoom() {
     })
       .then((response) => response.json())
       .then((data) => {
-        setNewRoomCode(data.code);
+        setRoomCode(data.code);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
+    console.log(roomCode);
   }
 
   // function handleClipboardButton() {
