@@ -7,15 +7,17 @@ import { MdContentCopy } from "react-icons/md";
 
 function CreateRoom() {
   const { state } = useLocation();
-  const [roomCode, setRoomCode] = useState(state.roomCode);
+  const [roomCode, setRoomCode] = useState();
+  const [newRoomCode, setNewRoomCode] = useState(state.roomCode);
   const [isCopied, setIsCopied] = useState(false);
   const navigate = useNavigate();
 
-  // let roomCode = state.roomCode;
   console.log(roomCode);
+
   const navigateMatchRoom = () => {
     // 👇️ navigate to /
-    navigate("/match-room", { state: { roomCode: roomCode } });
+    // navigate("/match-room", { state: { roomCode: roomCode } });
+    navigate("/match-room", { state: { newRoomCode: newRoomCode } });
   };
 
   const onCopyText = () => {
@@ -35,20 +37,41 @@ function CreateRoom() {
     })
       .then((response) => response.json())
       .then((data) => {
-        setRoomCode(data.code);
+        // setRoomCode(data.code);
+        setNewRoomCode(data.code);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
-    console.log(roomCode);
+    console.log(newRoomCode);
   }
+
+  useEffect(() => {
+    // auto-login
+    fetch("/api/room", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setRoomCode(data.code);
+      })
+      .then(console.log(roomCode))
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
 
   // function handleClipboardButton() {
   //   navigator.clipboard.writeText(roomCode);
   //   setCopy("Copied: " + roomCode);
   // }
 
-  if (roomCode) {
+  // if (roomCode) {
+  if (newRoomCode) {
     return (
       <>
       <h2 className="headers-dark">Room Code:</h2>
@@ -56,8 +79,10 @@ function CreateRoom() {
         <div className="container">
           <div className="code-snippet">
             <div className="code-section">
-              <pre style={{ float: "left", color: "#666248" }}>{roomCode}</pre>
-              <CopyToClipboard text={roomCode} onCopy={onCopyText}>
+              {/* <pre style={{ float: "left", color: "#666248" }}>{roomCode}</pre> */}
+              <pre style={{ float: "left", color: "#666248" }}>{newRoomCode}</pre>
+              {/* <CopyToClipboard text={roomCode} onCopy={onCopyText}> */}
+              <CopyToClipboard text={newRoomCode} onCopy={onCopyText}>
                 <span>
                   {isCopied ? (
                     "Copied!" 
