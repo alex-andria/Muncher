@@ -29,7 +29,8 @@ function MatchFound({match}){
                 <h3>{match}</h3>
               </div>
             </TinderCard>
-          </div>
+            </div>
+            {/* return button placed here */}
     
         </div>
     );
