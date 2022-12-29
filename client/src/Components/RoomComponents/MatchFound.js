@@ -31,6 +31,11 @@ function MatchFound({match}){
             </TinderCard>
             </div>
             {/* return button placed here */}
+            <div>
+              <button>
+                Return Home
+              </button>
+            </div>
     
         </div>
     );
