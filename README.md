@@ -8,11 +8,12 @@ https://user-images.githubusercontent.com/89554728/210067514-31969b2a-ee3a-4a68-
 ![sign-up, swipe, and match images](screenshot/set.png)
 
 ## Features
-* Authentication and authorization: Allows users to sign-in or sign-up and have an account saved to the local database.
-* Create match room: User can create a new match room and share their room code for one other person to join.
-* Join match room: User can join a match room with a room code shared to them.
-* Interactive card swipe: Card swiping left or right functional or user can also click on the corresponding buttons.
-* Instantaneous cuisine matching: Displays matched cuisine instantly after both users swipe right on the same cuisine. 
+* Authentication and authorization: Allows users to sign in or sign up and have an account saved to the local database.
+* Create a match room: Users can create a new match room and share their room code for one other person to join.
+* Join a match room: Users can join a match room with a room code shared with them.
+*I nteractive card swipe: Users can swipe cards left or right or click on the corresponding buttons.
+* Instantaneous cuisine matching: The matched cuisine is instantly displayed after both users swipe right on the same cuisine.
+
 ### Tech Stack
 * JavaScript
 * React
@@ -48,7 +49,6 @@ pip3 install -r requirements.txt
 ```bash
 flask run
 ```
-
 
 ### Updated running instructions
 
