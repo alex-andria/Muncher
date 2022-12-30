@@ -1,8 +1,21 @@
-# Muncher
-Like Tinder, but to help indecisive couples pick where to eat!
+# Muncher | Swipe Right - on Your Next Meal
+Like Tinder, but to help indecisive people pick where to eat!
 
-## Python Commands
-Here's a bunch of shell commands to do various python things. You should run these in the base folder of the repo.
+## Project Video
+
+## Project Screenshot
+![sign-up, swipe, and match images](screenshot/set.png)
+
+## Features
+* Authentication and authorization: Allows users to sign-in or sign-up and have an account saved to the local database.
+* Create match room: User can create a new match room and share their room code for one other person to join.
+* Join match room: User can join a match room with a room code shared to them.
+* Interactive card swipe: Card swiping left or right functional or user can also click on the corresponding buttons.
+* Instantaneous cuisine matching: Displays matched cuisine instantly after both users swipe right on the same cuisine. 
+
+## Getting Started
+### Python Commands
+*Here's a bunch of shell commands to do various python things. You should run these in the base folder of the repo.
 
 ### Install Dependency
 
