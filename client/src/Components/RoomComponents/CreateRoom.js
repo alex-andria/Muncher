@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {Routes, Route, useNavigate } from "react-router-dom";
-import {Link, useLocation} from 'react-router-dom';
-import MatchRoom from "./MatchRoom";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { MdContentCopy } from "react-icons/md";
 
@@ -33,7 +32,6 @@ function CreateRoom() {
     })
       .then((response) => response.json())
       .then((data) => {
-        // setRoomCode(data.code);
         setRoomCode(data.code);
       })
       .catch((error) => {
@@ -60,22 +58,22 @@ function CreateRoom() {
       });
   }, []);
 
-    return (
-      <>
+  return (
+    <>
       <h2 className="headers-dark">Room Code:</h2>
       <h3>
         <div className="container">
           <div className="code-snippet">
             <div className="code-section">
-              {/* <pre style={{ float: "left", color: "#666248" }}>{roomCode}</pre> */}
               <pre style={{ float: "left", color: "#666248" }}>{roomCode}</pre>
-              {/* <CopyToClipboard text={roomCode} onCopy={onCopyText}> */}
               <CopyToClipboard text={roomCode} onCopy={onCopyText}>
                 <span>
                   {isCopied ? (
-                    "Copied!" 
+                    "Copied!"
                   ) : (
-                    <MdContentCopy style={{ color: "#666248", float: "right" }} />
+                    <MdContentCopy
+                      style={{ color: "#666248", float: "right" }}
+                    />
                   )}
                 </span>
               </CopyToClipboard>
@@ -89,7 +87,7 @@ function CreateRoom() {
         >
           Start Room
         </button>
-        <br/>
+        <br />
         <button
           className="buttons-room"
           type="button"
@@ -98,8 +96,8 @@ function CreateRoom() {
           Get New Code
         </button>
       </h3>
-      </>
-    );
+    </>
+  );
 }
 
 export default CreateRoom;
