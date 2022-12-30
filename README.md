@@ -2,6 +2,7 @@
 Like Tinder, but to help indecisive people pick where to eat!
 
 ## Project Video
+https://user-images.githubusercontent.com/89554728/210067380-3509e125-8b37-4877-b61b-09153a0d775e.mp4
 
 ## Project Screenshot
 ![sign-up, swipe, and match images](screenshot/set.png)
