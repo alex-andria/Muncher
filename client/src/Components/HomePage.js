@@ -1,6 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function HomePage() {
   const navigate = useNavigate();
@@ -18,7 +17,11 @@ function HomePage() {
 
   return (
     <>
-      <button className="buttons-room" type="button" onClick={navigateCreateRoom}>
+      <button
+        className="buttons-room"
+        type="button"
+        onClick={navigateCreateRoom}
+      >
         Create Room
       </button>
       <br /> <br /> <br />

@@ -8,15 +8,14 @@ function JoinRoom() {
 
   const navigateMatchRoom = () => {
     // 👇️ navigate to /
-    navigate("/match-room", {state: {roomCode: joinCode}});
+    navigate("/match-room", { state: { roomCode: joinCode } });
   };
 
   // post room code to connect
-  function handleJoinRoomCode(e){
-
+  function handleJoinRoomCode(e) {
     const code = {
       code: joinCode,
-    }
+    };
 
     e.preventDefault();
     fetch("/api/room/join", {
@@ -40,9 +39,17 @@ function JoinRoom() {
     <>
       <h1>Join Room</h1>
       <form onSubmit={handleJoinRoomCode}>
-        <label style={{color: "#666248", padding: "6px"}} htmlFor="room-code">Enter room code:</label>
-        <br/>
-        <input className="roomCode-input" type="text" id="room-code" name="room-code" onChange={(e) => setJoinCode(e.target.value)} />
+        <label style={{ color: "#666248", padding: "6px" }} htmlFor="room-code">
+          Enter room code:
+        </label>
+        <br />
+        <input
+          className="roomCode-input"
+          type="text"
+          id="room-code"
+          name="room-code"
+          onChange={(e) => setJoinCode(e.target.value)}
+        />
         <input className="buttons-room" type="submit" value="Submit"></input>
       </form>
     </>

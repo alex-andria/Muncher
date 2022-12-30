@@ -124,14 +124,23 @@ function SignIn({ onLogin }) {
                   </label>
                 </div> */}
                 <div className="group">
-                  <input type="submit" className="button" value="Sign In" style={{color: "#fefefe", fontWeight: "550"}}/>
+                  <input
+                    type="submit"
+                    className="button"
+                    value="Sign In"
+                    style={{ color: "#fefefe", fontWeight: "550" }}
+                  />
                 </div>
                 <div className="hr"></div>
                 {/* <div className="foot-lnk">
                   <a href="#forgot">Forgot Password?</a>
                 </div> */}
                 <div className="foot-lnk">
-                  <label className="" htmlFor="tab-2" style={{color: "#fefefe"}}>
+                  <label
+                    className=""
+                    htmlFor="tab-2"
+                    style={{ color: "#fefefe" }}
+                  >
                     Not a member? Create account
                   </label>
                 </div>
@@ -189,12 +198,21 @@ function SignIn({ onLogin }) {
                   <input id="pass" type="text" className="input" />
                 </div> */}
                 <div className="group">
-                  <input type="submit" className="button" value="Sign Up"  style={{color: "#fefefe", fontWeight: "550"}} />
+                  <input
+                    type="submit"
+                    className="button"
+                    value="Sign Up"
+                    style={{ color: "#fefefe", fontWeight: "550" }}
+                  />
                 </div>
                 <h3>{errors}</h3>
                 <div className="hr"></div>
                 <div className="foot-lnk">
-                  <label className="" htmlFor="tab-1" style={{color: "#fefefe"}}>
+                  <label
+                    className=""
+                    htmlFor="tab-1"
+                    style={{ color: "#fefefe" }}
+                  >
                     Already have an account? Log-in
                   </label>
                 </div>

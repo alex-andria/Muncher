@@ -3,7 +3,6 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function NavBar({ user, setUser }) {
-
   const navigate = useNavigate();
 
   const navigateHome = () => {
@@ -11,7 +10,6 @@ function NavBar({ user, setUser }) {
     navigate("/");
   };
 
-  
   function handleLogOut() {
     fetch("/api/logout", { method: "DELETE" }).then((r) => {
       if (r.ok) {
