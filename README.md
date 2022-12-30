@@ -2,7 +2,7 @@
 Like Tinder, but to help indecisive people pick where to eat!
 
 ## Project Video
-https://user-images.githubusercontent.com/89554728/210067380-3509e125-8b37-4877-b61b-09153a0d775e.mp4
+https://user-images.githubusercontent.com/89554728/210067514-31969b2a-ee3a-4a68-ab7a-0c143bd7cf84.mp4
 
 ## Project Screenshot
 ![sign-up, swipe, and match images](screenshot/set.png)
@@ -13,6 +13,12 @@ https://user-images.githubusercontent.com/89554728/210067380-3509e125-8b37-4877-
 * Join match room: User can join a match room with a room code shared to them.
 * Interactive card swipe: Card swiping left or right functional or user can also click on the corresponding buttons.
 * Instantaneous cuisine matching: Displays matched cuisine instantly after both users swipe right on the same cuisine. 
+### Tech Stack
+* JavaScript
+* React
+* Bootstrap
+* Python
+* Flask
 
 ## Getting Started
 ### Python Commands
