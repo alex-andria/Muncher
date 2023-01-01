@@ -35,13 +35,10 @@ function MatchFound({ match }) {
       </div>
       {/* return button placed here */}
       <div>
-      <button
-          className="buttons-room"
-          type="button"
-          onClick={navigateHome}
-        > Return Home
-          </button>
-            </div>
+        <button className="buttons-room" type="button" onClick={navigateHome} style={{marginTop: "10%", marginLeft: "5%"}}>
+          Return Home
+        </button>
+      </div>
     </div>
   );
 }
