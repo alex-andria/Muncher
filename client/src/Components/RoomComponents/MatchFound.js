@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
 import ConfettiExplosion from "react-confetti-explosion";
 import TinderCard from "react-tinder-card";
+import { useNavigate } from "react-router-dom";
 
 function MatchFound({ match }) {
   // const [isExploding, setIsExploding] = useState(true);
   console.log(match);
   let url = `url(./CuisineImages/${match}.jpg)`;
   console.log(url);
+
+  const navigateHome = () => {
+    // 👇️ navigate to /
+    // navigate("/create-room");
+    navigate("/");
+  };
 
   return (
     <div>
@@ -26,11 +33,14 @@ function MatchFound({ match }) {
         </TinderCard>
       </div>
       {/* return button placed here */}
-      {/* <div>
-              <button>
-                Return Home
-              </button>
-            </div> */}
+      <div>
+      <button
+          className="buttons-room"
+          type="button"
+          onClick={navigateHome}
+        > Return Home
+          </button>
+            </div>
     </div>
   );
 }
