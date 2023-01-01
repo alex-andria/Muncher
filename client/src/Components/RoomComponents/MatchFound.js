@@ -8,6 +8,7 @@ function MatchFound({ match }) {
   console.log(match);
   let url = `url(./CuisineImages/${match}.jpg)`;
   console.log(url);
+  const navigate = useNavigate();
 
   const navigateHome = () => {
     // 👇️ navigate to /
