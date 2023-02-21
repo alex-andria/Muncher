@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
-import { Link, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { MdContentCopy } from "react-icons/md";
 
 function CreateRoom() {
-  const { state } = useLocation();
   const [roomCode, setRoomCode] = useState();
   const [isCopied, setIsCopied] = useState(false);
   const navigate = useNavigate();
@@ -27,8 +25,7 @@ function CreateRoom() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-      },
-      // body: JSON.stringify(data),
+      }
     })
       .then((response) => response.json())
       .then((data) => {
@@ -37,7 +34,6 @@ function CreateRoom() {
       .catch((error) => {
         console.error("Error:", error);
       });
-    console.log(roomCode);
   }
 
   useEffect(() => {
@@ -46,8 +42,7 @@ function CreateRoom() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-      },
-      // body: JSON.stringify(data),
+      }
     })
       .then((response) => response.json())
       .then((data) => {
