@@ -89,7 +89,6 @@ function SignIn({ onLogin }) {
             Sign Up
           </label>
           <div className="login-form">
-            {/* log-in form */}
             <form onSubmit={handleSignInSubmit}>
               <div className="sign-in-htm">
                 <div className="group">
@@ -117,12 +116,6 @@ function SignIn({ onLogin }) {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                {/* <div className="group">
-                  <input id="check" type="checkbox" className="check" checked />
-                  <label htmlFor="check">
-                    <span className="icon"></span> Keep me Signed in
-                  </label>
-                </div> */}
                 <div className="group">
                   <input
                     type="submit"
@@ -132,9 +125,6 @@ function SignIn({ onLogin }) {
                   />
                 </div>
                 <div className="hr"></div>
-                {/* <div className="foot-lnk">
-                  <a href="#forgot">Forgot Password?</a>
-                </div> */}
                 <div className="foot-lnk">
                   <label
                     className=""
@@ -146,8 +136,6 @@ function SignIn({ onLogin }) {
                 </div>
               </div>
             </form>
-
-            {/* sign-up form */}
             <form onSubmit={handleSignUpSubmit}>
               <div className="sign-up-htm">
                 <div className="group">
@@ -190,13 +178,6 @@ function SignIn({ onLogin }) {
                     }
                   />
                 </div>
-                {/* ***** Email Address ***** */}
-                {/* <div className="group">
-                  <label htmlFor="pass" className="label">
-                    Email Address
-                  </label>
-                  <input id="pass" type="text" className="input" />
-                </div> */}
                 <div className="group">
                   <input
                     type="submit"

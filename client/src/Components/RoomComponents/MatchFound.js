@@ -4,7 +4,6 @@ import TinderCard from "react-tinder-card";
 import { useNavigate } from "react-router-dom";
 
 function MatchFound({ match }) {
-  // const [isExploding, setIsExploding] = useState(true);
   console.log(match);
   let url = `url(./CuisineImages/${match}.jpg)`;
   console.log(url);
@@ -12,7 +11,6 @@ function MatchFound({ match }) {
 
   const navigateHome = () => {
     // 👇️ navigate to /
-    // navigate("/create-room");
     navigate("/");
   };
 
@@ -20,12 +18,9 @@ function MatchFound({ match }) {
     <div>
       <h1>You matched on {match} cuisine!</h1>
       <div className="cardContainer">
-        {/* {isExploding && <ConfettiExplosion />} */}
         <ConfettiExplosion />
         <TinderCard
-          //   ref={childRefs[index]}
           className="swipe"
-          //   key={character.name}
           style={{ paddingLeft: "300px" }}
         >
           <div style={{ backgroundImage: url }} className="card">
@@ -33,7 +28,6 @@ function MatchFound({ match }) {
           </div>
         </TinderCard>
       </div>
-      {/* return button placed here */}
       <div>
         <button className="buttons-room" type="button" onClick={navigateHome} style={{marginTop: "10%", marginLeft: "5%"}}>
           Return Home
@@ -43,5 +37,4 @@ function MatchFound({ match }) {
   );
 }
 
-// "./CuisineImages/French.jpg"
 export default MatchFound;

@@ -6,7 +6,6 @@ function HomePage() {
 
   const navigateCreateRoom = () => {
     // 👇️ navigate to /
-    // navigate("/create-room");
     navigate("/create-room");
   };
 
